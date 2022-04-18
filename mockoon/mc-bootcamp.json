@@ -1,0 +1,152 @@
+{
+  "uuid": "4f37efdd-2fd2-4585-97e6-b98368a728be",
+  "lastMigration": 19,
+  "name": "Mc bootcamp",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 80,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "390cfd0b-c497-4a3e-9f66-a28dcf4e201a",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "me",
+      "responses": [
+        {
+          "uuid": "03269923-261d-40f1-a928-58faec7dedc9",
+          "body": "{\n    \"Id\": \"fc26ec7a-faee-4bb6-b73c-0d9864a31c19\",\n    \"DisplayName\": \"Gaspard Tacus\",\n    \"GivenName\": \"Gaspard\",\n    \"Surname\": \"Tacus\",\n    \"Position\": \"Consultant\",\n    \"Initials\": \"GT\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "7d581f8f-c837-454f-85e4-d211cebe9792",
+          "body": "{\n    \"Id\": \"fc26ec7a-faee-4bb6-b73c-0d9864a31c19\",\n    \"DisplayName\": \"Alex Andry\",\n    \"GivenName\": \"Alex\",\n    \"Surname\": \"Andry\",\n    \"Position\": \"Consultant\",\n    \"Initials\": \"AA\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        },
+        {
+          "uuid": "d7aa099a-8dcf-4389-b8a5-27909cde2bf5",
+          "body": "{\n    \"Id\": \"fc26ec7a-faee-4bb6-b73c-0d9864a31c19\",\n    \"DisplayName\": \"Jerry Kahn\",\n    \"GivenName\": \"Jerry\",\n    \"Surname\": \"Kahn\",\n    \"Position\": \"Consultant\",\n    \"Initials\": \"JH\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": true
+    },
+    {
+      "uuid": "3873e814-f690-405e-91f5-02fc8ecf4392",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "get",
+      "responses": [
+        {
+          "uuid": "52d09833-fe1a-4481-8a6d-0b52a637c190",
+          "body": "{\n    \"CompanyRating\": {\n        \"CompanyRating\": null,\n        \"RecommandationRating\": null,\n        \"MissionRating\": null,\n        \"Comments\": null\n    },\n    \"ManagerRating\": {\n        \"ManagerRating\": null,\n        \"PositiveComments\": null,\n        \"NegativeComments\": null\n    },\n    \"HasSavedData\": false,\n    \"CanEditData\": true,\n    \"ShouldEditPreviousMonth\": false\n}\n\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    },
+    {
+      "uuid": "bd82eef1-a063-4157-a7e5-3233506c1f78",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "save",
+      "responses": [
+        {
+          "uuid": "1eb8c9a1-cfe7-4c13-8972-8c99151c10c2",
+          "body": "{\n  \"CompanyRating\": {\n    \"CompanyRating\": {{body 'CompanyRating' null}},\n    \"RecommandationRating\": {{body 'RecommandationRating' null}},\n    \"MissionRating\": {{body 'MissionRating' null}},\n    \"Comments\": {{body 'Comments' null}},\n  },\n  \"ManagerRating\": {\n    \"ManagerRating\": null,\n    \"PositiveComments\": null,\n    \"NegativeComments\": null\n  },\n  \"HasSavedData\": true,\n  \"CanEditData\": true,\n  \"ShouldEditPreviousMonth\": false\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false
+        }
+      ],
+      "enabled": true,
+      "randomResponse": false,
+      "sequentialResponse": false
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ]
+}

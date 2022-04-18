@@ -1,0 +1,16 @@
+{
+  "CompanyRating": {
+    "CompanyRating": 10,
+    "RecommandationRating": 10,
+    "MissionRating": 10,
+    "Comments": null
+  },
+  "ManagerRating": {
+    "ManagerRating": null,
+    "PositiveComments": null,
+    "NegativeComments": null
+  },
+  "HasSavedData": false,
+  "CanEditData": true,
+  "ShouldEditPreviousMonth": false
+}
