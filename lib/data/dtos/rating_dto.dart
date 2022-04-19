@@ -18,4 +18,5 @@ class RatingDto {
   ManagerRatingDto? managerRating;
 
   static fromJson(Map<String, dynamic> map) => _$RatingDtoFromJson(map);
+  Map<String, dynamic> toJson() => _$RatingDtoToJson(this);
 }

@@ -14,4 +14,5 @@ class CompanyRatingDto {
   String? comments;
 
   static fromJson(Map<String, dynamic> json) => _$CompanyRatingDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$CompanyRatingDtoToJson(this);
 }

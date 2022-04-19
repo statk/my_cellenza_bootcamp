@@ -10,3 +10,4 @@ My Cellenza Bootcamp project
 #### 3. Animation at the end of voting
 #### 4. Rating star animation
 #### 5. Transition hero
+#### 6. [Edit text numbers only verification](https://stackoverflow.com/a/65886416)

@@ -26,7 +26,7 @@ class _RatingRepository implements RatingRepository {
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RatingDto>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/rating',
+                .compose(_dio.options, '/get',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RatingDto.fromJson(_result.data!);
@@ -38,11 +38,12 @@ class _RatingRepository implements RatingRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'date': date};
     final _headers = <String, dynamic>{};
-    final _data = rating;
+    final _data = <String, dynamic>{};
+    _data.addAll(rating.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RatingDto>(
             Options(method: 'POST', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/ratings',
+                .compose(_dio.options, '/save',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = RatingDto.fromJson(_result.data!);

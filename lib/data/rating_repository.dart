@@ -7,10 +7,10 @@ part 'rating_repository.g.dart';
 
 @RestApi(baseUrl: baseApiUrl)
 abstract class RatingRepository {
-  @GET('/rating')
+  @GET('/get')
   Future<RatingDto> getRating(@Query('date') String date);
 
-  @POST('/ratings')
+  @POST('/save')
   Future<RatingDto> postRating(@Body() RatingDto rating, @Query('date') String date);
 
   factory RatingRepository(Dio dio, {String? baseUrl}) => _RatingRepository(dio, baseUrl: baseUrl);

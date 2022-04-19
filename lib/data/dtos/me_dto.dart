@@ -19,4 +19,5 @@ class MeDto {
   MeDto(this.id, this.displayName, this.givenName, this.surname, this.position, this.initials);
 
   static fromJson(Map<String, dynamic> map) => _$MeDtoFromJson(map);
+  static toJson(MeDto instance) => _$MeDtoToJson(instance);
 }

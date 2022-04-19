@@ -1,8 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http_proxy_override/http_proxy_override.dart';
 import 'package:my_cellenza_bootcamp/pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureProxy();
+
   runApp(const MyApp());
+}
+
+Future<void> configureProxy() async {
+  HttpProxyOverride httpProxyOverride = await HttpProxyOverride.createHttpProxy();
+  HttpOverrides.global = httpProxyOverride;
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

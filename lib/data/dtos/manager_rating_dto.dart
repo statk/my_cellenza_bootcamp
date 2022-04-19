@@ -12,4 +12,5 @@ class ManagerRatingDto {
   String? negativeComments;
 
   static fromJson(Map<String, dynamic> json) => _$ManagerRatingDtoFromJson(json);
+  Map<String, dynamic> toJson() => _$ManagerRatingDtoToJson(this);
 }

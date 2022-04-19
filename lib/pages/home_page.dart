@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cellenza_bootcamp/data/me_repository.dart';
-import 'package:my_cellenza_bootcamp/pages/humeur_page.dart';
+import 'package:my_cellenza_bootcamp/pages/mood_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,9 +39,9 @@ class _HomePageState extends State<HomePage> {
             Text('Hello $_userName 👋', style: const TextStyle(fontSize: 32)),
             OutlinedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HumeurPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MoodPage()));
               },
-              child: const Text('Go to Humeur'),
+              child: const Text('Go to My Mood of the month'),
             ),
           ],
         ),
