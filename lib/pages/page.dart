@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class WidgetPage extends StatelessWidget {
-  final Widget _widget;
-  const WidgetPage(this._widget, {Key? key}) : super(key: key);
+  final Widget? _widget;
+  final AppBar? _appBar;
+  const WidgetPage({Key? key, AppBar? appBar, Widget? widget})
+      : _widget = widget,
+        _appBar = appBar,
+        super(key: key);
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -17,6 +21,7 @@ class WidgetPage extends StatelessWidget {
         statusBarBrightness: (Theme.of(context).brightness == Brightness.light) ? Brightness.light : Brightness.dark,
       ),
       child: Scaffold(
+        appBar: _appBar,
         body: _widget,
       ),
     );

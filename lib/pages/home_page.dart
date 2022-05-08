@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cellenza_bootcamp/data/dtos/me_dto.dart';
 import 'package:my_cellenza_bootcamp/data/me_repository.dart';
+import 'package:my_cellenza_bootcamp/pages/mood_page.dart';
 import 'package:my_cellenza_bootcamp/pages/page.dart';
 
 class HomePage extends StatefulWidget {
+  static const String heroTag = 'humeurTag';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -32,7 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetPage(Column(
+    return WidgetPage(
+        widget: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
@@ -40,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.black54,
+                color: Colors.black,
                 blurRadius: 10,
                 spreadRadius: 2,
               ),
@@ -49,6 +52,17 @@ class _HomePageState extends State<HomePage> {
             color: Color.fromRGBO(101, 147, 231, 1),
           ),
           child: Stack(children: [
+            _user?.initials != null
+                ? Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(320, 50, 20, 20),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text(_user!.initials),
+                      ),
+                    ),
+                  ])
+                : Container(),
             Padding(
               padding: const EdgeInsets.only(top: 100.0),
               child: Container(
@@ -73,81 +87,54 @@ class _HomePageState extends State<HomePage> {
             ),
           ]),
         ),
-        _user?.initials != null
-            ? Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 20, 20),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.blueAccent,
-                    child: Text(_user!.initials),
-                  ),
-                ),
-              ])
-            : Container(),
         Text(
           'Bonjour ${_user?.displayName ?? ''} !',
           style: const TextStyle(fontSize: 32),
           textAlign: TextAlign.left,
         ),
         const SizedBox(height: 40),
-        SizedBox(
-            height: 200,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15.0),
-              child: Stack(
-                children: [
-                  Positioned(
-                      top: 35,
-                      left: 20,
-                      bottom: 1,
-                      child: Material(
+        GestureDetector(
+          child: SizedBox(
+              height: 200,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15.0),
+                child: Stack(
+                  children: [
+                    Positioned(
+                        top: 35,
+                        left: 20,
+                        bottom: 1,
+                        child: Material(
+                            child: Hero(
+                          tag: 'cellenza',
                           child: Container(
-                        height: 180,
-                        width: 250,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(0),
-                          boxShadow: const [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.black54,
-                              blurRadius: 10,
-                            ),
-                          ],
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 155.0),
-                          child: Center(
-                              child: Text('Mon humeur',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueAccent))),
-                        ),
-                      ))),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, left: 10, bottom: 10),
-                    child: Positioned(
-                        child: Card(
-                            elevation: 10,
-                            shadowColor: Colors.black54,
-                            child: Container(
-                              height: 200,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(101, 177, 231, 1),
-                                borderRadius: BorderRadius.circular(10.0),
-                                image: const DecorationImage(
-                                  image: AssetImage('lib/assets/mood.png'),
-                                  fit: BoxFit.cover,
+                            height: 180,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              image: const DecorationImage(
+                                  image: AssetImage(
+                                    './lib/assets/humeur.png',
+                                  ),
+                                  fit: BoxFit.cover),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: const [
+                                BoxShadow(
+                                  offset: Offset(0, 10),
+                                  color: Colors.black54,
+                                  blurRadius: 10,
                                 ),
-                              ),
-                            ))),
-                  ),
-                ],
-              ),
-            )),
+                              ],
+                            ),
+                          ),
+                        ))),
+                  ],
+                ),
+              )),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const MoodPage()));
+          },
+        ),
         const Spacer(),
       ],
     ));
