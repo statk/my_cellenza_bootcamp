@@ -26,10 +26,11 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
 
     _successAnimationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1700),
     );
     _successAnimationController!.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        _successAnimationController!.reset();
         _successOverlay?.remove();
       }
     });
@@ -140,6 +141,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                         onLoaded: (_) => _successAnimationController?.forward(),
                       ));
               Overlay.of(context)?.insert(_successOverlay!);
+
               _successAnimationController?.forward();
             },
             child: const Text('Enregistrer'),
