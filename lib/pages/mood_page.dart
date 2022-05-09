@@ -129,11 +129,11 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
               backgroundColor: MaterialStateProperty.all<Color>(Colors.indigo),
               textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(color: Colors.white)),
               shadowColor: MaterialStateProperty.all<Color>(Colors.black54),
-              fixedSize: MaterialStateProperty.all<Size>(Size(200, 50)),
+              fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
             ),
             onPressed: () async {
-              //await _ratingRepository.postRating(_rating!, DateTime.now().toString());
-              //await _getRating();
+              await _ratingRepository.postRating(_rating!, DateTime.now().toString());
+              await _getRating();
               _successOverlay = OverlayEntry(
                   builder: (context) => Lottie.asset(
                         './lib/assets/congratulations-animation.json',
