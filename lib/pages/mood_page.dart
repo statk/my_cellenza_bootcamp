@@ -6,6 +6,8 @@ import 'package:my_cellenza_bootcamp/data/dtos/company_rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/dtos/rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/rating_repository.dart';
 import 'package:my_cellenza_bootcamp/pages/page.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class MoodPage extends StatefulWidget {
   const MoodPage() : super(key: const Key('MoodPage'));
@@ -56,7 +58,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
       appBar: AppBar(
         elevation: 10,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(50))),
-        toolbarHeight: 100,
+        toolbarHeight: 72,
         shadowColor: Colors.black,
         backgroundColor: const Color.fromRGBO(101, 147, 231, 1),
         title: Text('NOTE D\'HUMEUR'),
@@ -66,7 +68,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(height: 20),
-          const Text('Comment te sens-tu chez Cellenza ?'),
+          const Text('Comment te sens-tu chez Cellenza ?', style: TextStyle(fontSize: 20)),
           RatingBar.builder(
               itemCount: 5,
               minRating: 1,
@@ -79,7 +81,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                     }
                     _rating!.companyRating!.companyRating = (rating * 2).round();
                   })),
-          const Text('Comment te sens-tu en mission ?'),
+          const Text('Comment te sens-tu en mission ?', style: TextStyle(fontSize: 20)),
           RatingBar.builder(
               itemCount: 5,
               minRating: 1,
@@ -92,7 +94,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                     }
                     _rating!.companyRating!.missionRating = (rating * 2).round();
                   })),
-          const Text('Recommenders-tu Cellenza à un ami ?'),
+          const Text('Recommenders-tu Cellenza à un ami ?', style: TextStyle(fontSize: 20)),
           RatingBar.builder(
               itemCount: 5,
               minRating: 1,
@@ -105,7 +107,7 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                     }
                     _rating!.companyRating!.recommendationRating = (rating * 2).round();
                   })),
-          const Text('J\'aurais mis 10 si :'),
+          const Text('J\'aurais mis 10 si :', style: TextStyle(fontSize: 20)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: TextField(
@@ -117,7 +119,6 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                       _rating?.companyRating?.comments = value;
                     })),
           ),
-          const SizedBox(height: 20),
           ElevatedButton(
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -132,17 +133,24 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
               fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
             ),
             onPressed: () async {
-              await _ratingRepository.postRating(_rating!, DateTime.now().toString());
-              await _getRating();
+              //await _ratingRepository.postRating(_rating!, DateTime.now().toString());
+              //await _getRating();
               _successOverlay = OverlayEntry(
                   builder: (context) => Lottie.asset(
                         './lib/assets/congratulations-animation.json',
                         controller: _successAnimationController,
                         onLoaded: (_) => _successAnimationController?.forward(),
                       ));
-              Overlay.of(context)?.insert(_successOverlay!);
+              //Overlay.of(context)?.insert(_successOverlay!);
 
-              _successAnimationController?.forward();
+              //_successAnimationController?.forward();
+
+              showTopSnackBar(
+                context,
+                const CustomSnackBar.error(
+                  message: 'Merci de saisir l\'ensemble des notes',
+                ),
+              );
             },
             child: const Text('Enregistrer'),
           ),

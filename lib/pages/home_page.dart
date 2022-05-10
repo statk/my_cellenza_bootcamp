@@ -6,7 +6,6 @@ import 'package:my_cellenza_bootcamp/pages/mood_page.dart';
 import 'package:my_cellenza_bootcamp/pages/page.dart';
 
 class HomePage extends StatefulWidget {
-  static const String heroTag = 'humeurTag';
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -87,6 +86,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ]),
         ),
+        const SizedBox(height: 50),
         Text(
           'Bonjour ${_user?.displayName ?? ''} !',
           style: const TextStyle(fontSize: 32),
