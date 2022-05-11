@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:lottie/lottie.dart';
 import 'package:my_cellenza_bootcamp/data/dtos/company_rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/dtos/rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/rating_repository.dart';
 import 'package:my_cellenza_bootcamp/pages/page.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:my_cellenza_bootcamp/plugins/headers.dart';
+import 'package:my_cellenza_bootcamp/plugins/snack_bar_dialog.dart';
+import 'package:my_cellenza_bootcamp/plugins/success_animation.dart';
+import 'package:my_cellenza_bootcamp/plugins/widget_button.dart';
+import 'package:my_cellenza_bootcamp/plugins/widget_rating.dart';
 
 class MoodPage extends StatefulWidget {
   const MoodPage() : super(key: const Key('MoodPage'));
@@ -16,33 +17,15 @@ class MoodPage extends StatefulWidget {
   _MoodPageState createState() => _MoodPageState();
 }
 
-class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
+class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin, SuccessAnimation {
   final RatingRepository _ratingRepository = RatingRepository(Dio());
   RatingDto? _rating;
-  OverlayEntry? _successOverlay;
-  AnimationController? _successAnimationController;
 
   @override
   initState() {
     super.initState();
 
-    _successAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1700),
-    );
-    _successAnimationController!.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _successAnimationController!.reset();
-        _successOverlay?.remove();
-      }
-    });
-
-    _successOverlay = OverlayEntry(
-        builder: (context) => Lottie.asset(
-              './lib/assets/congratulations-animation.json',
-              controller: _successAnimationController,
-              onLoaded: (_) => _successAnimationController?.forward(),
-            ));
+    initSuccessAnimation(this);
   }
 
   Future _getRating() async {
@@ -55,53 +38,32 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return WidgetPage(
-      appBar: AppBar(
-        elevation: 10,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(50))),
-        toolbarHeight: 72,
-        shadowColor: Colors.black,
-        backgroundColor: const Color.fromRGBO(101, 147, 231, 1),
-        title: Text('NOTE D\'HUMEUR'),
-      ),
+      appBar: AppBarHeader().createAppBar(context, 'NOTE D\'HUMEUR'),
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(height: 20),
-          const Text('Comment te sens-tu chez Cellenza ?', style: TextStyle(fontSize: 20)),
-          RatingBar.builder(
-              itemCount: 5,
-              minRating: 1,
-              allowHalfRating: true,
-              direction: Axis.horizontal,
-              itemBuilder: (context, _) => Lottie.asset('./lib/assets/rating-star.json', repeat: false),
-              onRatingUpdate: (rating) => setState(() {
-                    if (_rating?.companyRating == null) {
-                      _rating = RatingDto()..companyRating = CompanyRatingDto();
-                    }
-                    _rating!.companyRating!.companyRating = (rating * 2).round();
-                  })),
-          const Text('Comment te sens-tu en mission ?', style: TextStyle(fontSize: 20)),
-          RatingBar.builder(
-              itemCount: 5,
-              minRating: 1,
-              allowHalfRating: true,
-              direction: Axis.horizontal,
-              itemBuilder: (context, _) => Lottie.asset('./lib/assets/rating-star.json', repeat: false),
-              onRatingUpdate: (rating) => setState(() {
+          const SizedBox(height: 20),
+          WidgetRating(
+            description: 'Comment te sens-tu chez Cellenza ?',
+            onRatingChanged: (newRating) => setState(() {
+              if (_rating?.companyRating == null) {
+                _rating = RatingDto()..companyRating = CompanyRatingDto();
+              }
+              _rating!.companyRating!.companyRating = (newRating * 2).round();
+            }),
+          ),
+          WidgetRating(
+              description: 'Comment te sens-tu en mission ?',
+              onRatingChanged: (rating) => setState(() {
                     if (_rating?.companyRating == null) {
                       _rating = RatingDto()..companyRating = CompanyRatingDto();
                     }
                     _rating!.companyRating!.missionRating = (rating * 2).round();
                   })),
-          const Text('Recommenders-tu Cellenza à un ami ?', style: TextStyle(fontSize: 20)),
-          RatingBar.builder(
-              itemCount: 5,
-              minRating: 1,
-              allowHalfRating: true,
-              direction: Axis.horizontal,
-              itemBuilder: (context, _) => Lottie.asset('./lib/assets/rating-star.json', repeat: false),
-              onRatingUpdate: (rating) => setState(() {
+          WidgetRating(
+              description: 'Recommenders-tu Cellenza à un ami ?',
+              onRatingChanged: (rating) => setState(() {
                     if (_rating?.companyRating == null) {
                       _rating = RatingDto()..companyRating = CompanyRatingDto();
                     }
@@ -119,40 +81,14 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin {
                       _rating?.companyRating?.comments = value;
                     })),
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-              ),
-              elevation: MaterialStateProperty.all<double>(10),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.indigo),
-              textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(color: Colors.white)),
-              shadowColor: MaterialStateProperty.all<Color>(Colors.black54),
-              fixedSize: MaterialStateProperty.all<Size>(const Size(200, 50)),
-            ),
+          WidgetButton(
+            title: 'Enregistrer',
             onPressed: () async {
-              //await _ratingRepository.postRating(_rating!, DateTime.now().toString());
-              //await _getRating();
-              _successOverlay = OverlayEntry(
-                  builder: (context) => Lottie.asset(
-                        './lib/assets/congratulations-animation.json',
-                        controller: _successAnimationController,
-                        onLoaded: (_) => _successAnimationController?.forward(),
-                      ));
-              //Overlay.of(context)?.insert(_successOverlay!);
-
-              //_successAnimationController?.forward();
-
-              showTopSnackBar(
-                context,
-                const CustomSnackBar.error(
-                  message: 'Merci de saisir l\'ensemble des notes',
-                ),
-              );
+              await _ratingRepository.postRating(_rating!, DateTime.now().toString());
+              await _getRating();
+              showSuccessAnimation(context);
+              SnackBarDialog().show('Merci de saisir l\'ensemble des notes', context, SnackBarType.error);
             },
-            child: const Text('Enregistrer'),
           ),
           const SizedBox(height: 20),
         ],
