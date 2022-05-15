@@ -10,4 +10,9 @@ My Cellenza Bootcamp project
 #### 3. Animation at the end of voting
 #### 4. Rating star animation
 #### 5. Transition hero
-#### 6. [Edit text numbers only verification](https://stackoverflow.com/a/65886416)
+
+### source d'inspiration https://flutterawesome.com/
+
+
+## En cas d'erreurs sur Chrome essayer https://stackoverflow.com/questions/65630743/how-to-solve-flutter-web-api-cors-error-only-with-dart-code/66879350#66879350\
+ou https://pub.dev/packages/flutter_cors/install

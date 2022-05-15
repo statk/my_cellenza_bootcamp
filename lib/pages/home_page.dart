@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cellenza_bootcamp/data/dtos/me_dto.dart';
 import 'package:my_cellenza_bootcamp/data/me_repository.dart';
 import 'package:my_cellenza_bootcamp/pages/mood_page.dart';
+import 'package:my_cellenza_bootcamp/pages/page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   MeRepository meRepository = MeRepository(Dio());
-  String? _userName;
+  MeDto? _user;
 
   @override
   void initState() {
@@ -21,10 +23,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future _getMe() async {
-    var name = (await meRepository.getMe()).displayName;
-    setState(() {
-      _userName = name;
-    });
+    try {
+      var user = (await meRepository.getMe());
+      setState(() {
+        _user = user;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -36,9 +40,10 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           children: [
-            Text('Hello $_userName 👋', style: const TextStyle(fontSize: 32)),
+            Text('Hello ${_user?.displayName} 👋', style: const TextStyle(fontSize: 32)),
             OutlinedButton(
               onPressed: () {
+
                 Navigator.push(context, MaterialPageRoute(builder: (context) => MoodPage()));
               },
               child: const Text('Go to My Mood of the month'),

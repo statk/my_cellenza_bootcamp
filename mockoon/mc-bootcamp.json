@@ -4,7 +4,7 @@
   "name": "Mc bootcamp",
   "endpointPrefix": "",
   "latency": 0,
-  "port": 80,
+  "port": 3000,
   "hostname": "0.0.0.0",
   "routes": [
     {
@@ -75,12 +75,12 @@
       "responses": [
         {
           "uuid": "52d09833-fe1a-4481-8a6d-0b52a637c190",
-          "body": "{\n    \"CompanyRating\": {\n        \"CompanyRating\": null,\n        \"RecommandationRating\": null,\n        \"MissionRating\": null,\n        \"Comments\": null\n    },\n    \"ManagerRating\": {\n        \"ManagerRating\": null,\n        \"PositiveComments\": null,\n        \"NegativeComments\": null\n    },\n    \"HasSavedData\": false,\n    \"CanEditData\": true,\n    \"ShouldEditPreviousMonth\": false\n}\n\n",
+          "body": "",
           "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
-          "filePath": "",
+          "filePath": "./responses/get?date.json",
           "sendFileAsBody": false,
           "rules": [],
           "rulesOperator": "OR",
@@ -100,13 +100,13 @@
       "responses": [
         {
           "uuid": "1eb8c9a1-cfe7-4c13-8972-8c99151c10c2",
-          "body": "{\n  \"CompanyRating\": {\n    \"CompanyRating\": {{body 'CompanyRating' null}},\n    \"RecommandationRating\": {{body 'RecommandationRating' null}},\n    \"MissionRating\": {{body 'MissionRating' null}},\n    \"Comments\": {{body 'Comments' null}},\n  },\n  \"ManagerRating\": {\n    \"ManagerRating\": null,\n    \"PositiveComments\": null,\n    \"NegativeComments\": null\n  },\n  \"HasSavedData\": true,\n  \"CanEditData\": true,\n  \"ShouldEditPreviousMonth\": false\n}",
+          "body": "",
           "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
-          "filePath": "",
-          "sendFileAsBody": false,
+          "filePath": "./responses/get?date.json",
+          "sendFileAsBody": true,
           "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
