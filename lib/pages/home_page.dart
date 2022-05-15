@@ -33,61 +33,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetPage(
-        widget: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 50),
-        Text(
-          'Bonjour ${_user?.displayName ?? ''} !',
-          style: const TextStyle(fontSize: 32),
-          textAlign: TextAlign.left,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Cellenza'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text('Hello ${_user?.displayName} 👋', style: const TextStyle(fontSize: 32)),
+            OutlinedButton(
+              onPressed: () {
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MoodPage()));
+              },
+              child: const Text('Go to My Mood of the month'),
+            ),
+          ],
         ),
-        const SizedBox(height: 40),
-        GestureDetector(
-          child: SizedBox(
-              height: 200,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
-                child: Stack(
-                  children: [
-                    Positioned(
-                        top: 35,
-                        left: 20,
-                        bottom: 1,
-                        child: Material(
-                            child: Hero(
-                          tag: 'cellenza',
-                          child: Container(
-                            height: 180,
-                            width: 250,
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                  image: AssetImage(
-                                    './lib/assets/humeur.png',
-                                  ),
-                                  fit: BoxFit.cover),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: const [
-                                BoxShadow(
-                                  offset: Offset(0, 10),
-                                  color: Colors.black54,
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ))),
-                  ],
-                ),
-              )),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const MoodPage()));
-          },
-        ),
-        const Spacer(),
-      ],
-    ));
+      ),
+    );
   }
 }

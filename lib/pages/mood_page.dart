@@ -38,61 +38,65 @@ class _MoodPageState extends State<MoodPage> with TickerProviderStateMixin, Succ
   @override
   Widget build(BuildContext context) {
     return WidgetPage(
-      appBar: AppBarHeader().createAppBar(context, 'NOTE D\'HUMEUR'),
-      widget: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const SizedBox(height: 20),
-          WidgetRating(
-            description: 'Comment te sens-tu chez Cellenza ?',
-            onRatingChanged: (newRating) => setState(() {
-              if (_rating?.companyRating == null) {
-                _rating = RatingDto()..companyRating = CompanyRatingDto();
-              }
-              _rating!.companyRating!.companyRating = (newRating * 2).round();
-            }),
-          ),
-          WidgetRating(
-              description: 'Comment te sens-tu en mission ?',
-              onRatingChanged: (rating) => setState(() {
-                    if (_rating?.companyRating == null) {
-                      _rating = RatingDto()..companyRating = CompanyRatingDto();
-                    }
-                    _rating!.companyRating!.missionRating = (rating * 2).round();
-                  })),
-          WidgetRating(
-              description: 'Recommenders-tu Cellenza à un ami ?',
-              onRatingChanged: (rating) => setState(() {
-                    if (_rating?.companyRating == null) {
-                      _rating = RatingDto()..companyRating = CompanyRatingDto();
-                    }
-                    _rating!.companyRating!.recommendationRating = (rating * 2).round();
-                  })),
-          const Text('J\'aurais mis 10 si :', style: TextStyle(fontSize: 20)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextField(
-                decoration: const InputDecoration(),
+        appBar: AppBar(
+          title: const Text('NOTE D\'HUMEUR'),
+        ),
+        widget: Center(
+          child: Column(
+            children: [
+              const Text('Comment te sens-tu chez Cellenza ?'),
+              TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Note de 1 à 10',
+                  ),
+                  onChanged: (value) => setState(() {
+                        if (_rating?.companyRating == null) {
+                          _rating = RatingDto()..companyRating = CompanyRatingDto();
+                        }
+                        _rating!.companyRating!.companyRating = int.parse(value);
+                      })),
+              const Text('Comment te sens-tu en mission ?'),
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Note de 1 à 10',
+                ),
                 onChanged: (value) => setState(() {
-                      if (_rating?.companyRating == null) {
-                        _rating = RatingDto()..companyRating = CompanyRatingDto();
-                      }
-                      _rating?.companyRating?.comments = value;
-                    })),
+                  if (_rating?.companyRating == null) {
+                    _rating = RatingDto()..companyRating = CompanyRatingDto();
+                  }
+                  _rating?.companyRating?.missionRating = int.parse(value);
+                }),
+              ),
+              const Text('Recommenders-tu Cellenza à un ami ?'),
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Note de 1 à 10',
+                ),
+                onChanged: (value) => setState(() {
+                  if (_rating?.companyRating == null) {
+                    _rating = RatingDto()..companyRating = CompanyRatingDto();
+                  }
+                  _rating?.companyRating?.recommendationRating = int.parse(value);
+                }),
+              ),
+              const Text('J\'aurais mis 10 si :'),
+              TextField(
+                  decoration: const InputDecoration(),
+                  onChanged: (value) => setState(() {
+                        if (_rating?.companyRating == null) {
+                          _rating = RatingDto()..companyRating = CompanyRatingDto();
+                        }
+                        _rating?.companyRating?.comments = value;
+                      })),
+              OutlinedButton(
+                onPressed: () async {
+                  await _ratingRepository.postRating(_rating!, DateTime.now().toString());
+                  await _getRating();
+                },
+                child: const Text('Enregistrer'),
+              ),
+            ],
           ),
-          WidgetButton(
-            title: 'Enregistrer',
-            onPressed: () async {
-              await _ratingRepository.postRating(_rating!, DateTime.now().toString());
-              await _getRating();
-              showSuccessAnimation(context);
-              SnackBarDialog().show('Merci de saisir l\'ensemble des notes', context, SnackBarType.error);
-            },
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
-    );
+        ));
   }
 }
