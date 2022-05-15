@@ -12,3 +12,7 @@ My Cellenza Bootcamp project
 #### 5. Transition hero
 
 ### source d'inspiration https://flutterawesome.com/
+
+
+## En cas d'erreurs sur Chrome essayer https://stackoverflow.com/questions/65630743/how-to-solve-flutter-web-api-cors-error-only-with-dart-code/66879350#66879350\
+ou https://pub.dev/packages/flutter_cors/install
