@@ -4,11 +4,7 @@ import 'package:my_cellenza_bootcamp/data/dtos/company_rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/dtos/rating_dto.dart';
 import 'package:my_cellenza_bootcamp/data/rating_repository.dart';
 import 'package:my_cellenza_bootcamp/pages/page.dart';
-import 'package:my_cellenza_bootcamp/plugins/headers.dart';
-import 'package:my_cellenza_bootcamp/plugins/snack_bar_dialog.dart';
 import 'package:my_cellenza_bootcamp/plugins/success_animation.dart';
-import 'package:my_cellenza_bootcamp/plugins/widget_button.dart';
-import 'package:my_cellenza_bootcamp/plugins/widget_rating.dart';
 
 class MoodPage extends StatefulWidget {
   const MoodPage() : super(key: const Key('MoodPage'));
